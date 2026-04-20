@@ -76,20 +76,6 @@ WHERE ActualDeliveryDate > PromisedDate;
 -- 3.	Performance Ranking
 SELECT 
     P.PartnerName,
-
-    (SELECT COUNT(*) 
-     FROM Shipments S 
-     WHERE S.PartnerID = P.PartnerID AND S.Status = 'Delivered') 
-     AS Successful_Deliveries,
-
-    (SELECT COUNT(*) 
-     FROM Shipments S 
-     WHERE S.PartnerID = P.PartnerID AND S.Status = 'Returned') 
-     AS Returned_Deliveries
-
-FROM Partners P;
-SELECT 
-    P.PartnerName,
     COUNT(CASE WHEN S.Status = 'Delivered' THEN 1 END) AS Successful_Deliveries,
     COUNT(CASE WHEN S.Status = 'Returned' THEN 1 END) AS Returned_Deliveries
 FROM Partners P
